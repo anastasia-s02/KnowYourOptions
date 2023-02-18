@@ -1,8 +1,10 @@
 import streamlit as st
+import os
 from math import log, sqrt, exp
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import norm
+from pathlib import Path
 
 def d1(S, K, r, sigma, T):
     return (log(S/K) + (r + sigma**2/2)*T) / (sigma * sqrt(T))
@@ -77,7 +79,7 @@ elif nav_choice == "Black-Scholes":
 elif nav_choice == "Basic Concepts":
     # Add text
     st.header("Basic Concepts")
-
+    st.image(os.path.join("/Users/macbook/Desktop/HackNYU/KnowYourOptions","graph.png"))
     st.write("Options are contracts that give the holder the right, but not the obligation, to buy or sell an underlying asset at a predetermined price, within a specified time period. The underlying asset can be a stock, an index, a commodity, or a currency.")
 
     st.write("There are two types of options: calls and puts. A call option gives the holder the right to buy an underlying asset at a predetermined price, while a put option gives the holder the right to sell an underlying asset at a predetermined price.")
