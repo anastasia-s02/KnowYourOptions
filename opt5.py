@@ -4,7 +4,7 @@ from math import log, sqrt, exp
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import norm
-from pathlib import Path
+
 
 def d1(S, K, r, sigma, T):
     return (log(S/K) + (r + sigma**2/2)*T) / (sigma * sqrt(T))
@@ -15,11 +15,14 @@ def d2(S, K, r, sigma, T):
 def calculate_call_price(S, K, r, sigma, T):
     return S * norm.cdf(d1(S, K, r, sigma, T)) - K * exp(-r*T) * norm.cdf(d2(S, K, r, sigma, T))
 
+def calculate_put_price(S, K, r, sigma, T):
+    return (K * exp(-r*T) * norm.cdf(-d2(S, K, r, sigma, T)) - S * norm.cdf(-d1(S, K, r, sigma, T)))
+
 def plot_black_scholes(S, K, r, sigma, T):
     fig, ax = plt.subplots()
     ax.set_xlabel('Stock Price')
     ax.set_ylabel('Call Option Price')
-    ax.set_title('Black-Scholes Formula')
+    ax.set_title('Black-Scholes Formula for Call Option')
 
     # Create an array of stock prices ranging from 0.5*S to 1.5*S
     S_values = np.linspace(0.5*S, 1.5*S, 100)
@@ -29,6 +32,23 @@ def plot_black_scholes(S, K, r, sigma, T):
 
     # Plot the call option prices as a function of stock price
     ax.plot(S_values, call_prices)
+
+    return fig
+
+def plot_black_scholes_put(S, K, r, sigma, T):
+    fig, ax = plt.subplots()
+    ax.set_xlabel('Stock Price')
+    ax.set_ylabel('Put Option Price')
+    ax.set_title('Black-Scholes Formula for Put Option')
+
+    # Create an array of stock prices ranging from 0.5*S to 1.5*S
+    S_values = np.linspace(0.5*S, 1.5*S, 100)
+
+    # Calculate the corresponding call option prices using the Black-Scholes formula
+    put_prices = [calculate_put_price(S, K, r, sigma, T) for S in S_values]
+
+    # Plot the call option prices as a function of stock price
+    ax.plot(S_values, put_prices)
 
     return fig
 
@@ -74,7 +94,12 @@ elif nav_choice == "Black-Scholes":
     fig = plot_black_scholes(S, K, r, sigma, T)
     st.pyplot(fig, dpi=150)
     st.write('The plot above shows how the price of the call option changes with the price of the stock. You can see that as the stock price goes up, the value of the call option also goes up. This is because the holder of the call option has the right to buy the stock at a lower price than the market price, and')
+    put_price = calculate_put_price(S, K, r, sigma, T)
 
+    st.write(f'**Given the input parameters, the put option price is:** `{put_price:.2f}`')
+
+    fig2 = plot_black_scholes_put(S, K, r, sigma, T)
+    st.pyplot(fig2, dpi=150)
 
 elif nav_choice == "Basic Concepts":
     # Add text
