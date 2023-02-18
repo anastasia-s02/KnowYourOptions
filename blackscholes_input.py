@@ -34,4 +34,4 @@ K = input("Strike price")
     r = input("The risk free interest rate")
     s = input("Enter the volitality")
     #print BlackScholes('c', S=164.0, K=165.0, t=0.0959, r=0.0521, s=0.29) # 5.788529972549341
-    print BlackScholes('c', S, K, t, r, s)
+    print(BlackScholes('c', S, K, t, r, s))
