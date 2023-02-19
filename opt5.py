@@ -53,11 +53,11 @@ def plot_black_scholes_put(S, K, r, sigma, T):
     return fig
 
 # Set page title and favicon
-st.set_page_config(page_title="Options Trading 101", page_icon=":chart_with_upwards_trend:")
+st.set_page_config(page_title="OPTimal", page_icon=":chart_with_upwards_trend:")
 
 # Define a function to create the navigation menu
 def create_nav_menu():
-    nav_menu = ["Home","Black-Scholes",  "Basic Concepts", "Examples", "Resources"]
+    nav_menu = ["Home","What are options?","Black-Scholes Visualization"]
     nav_choice = st.sidebar.radio("Select a page:", nav_menu)
     return nav_choice
 
@@ -69,15 +69,12 @@ if nav_choice == "Home":
     st.markdown('<div class="bg-image"></div>', unsafe_allow_html=True)
 
     # Add header and subheader
-    st.header("Welcome to Options Trading 101")
+    st.header("Welcome to OPTimal")
     st.subheader("Learn how to trade options and supercharge your portfolio")
 
-    # Add call-to-action button
-    if st.button("Get Started"):
-        nav_choice = "Basic Concepts"
 
-elif nav_choice == "Black-Scholes":
-    st.title('Black-Scholes Formula Demo')
+elif nav_choice == "Black-Scholes Visualization":
+    st.title('Black-Scholes Formula Visualization')
     st.write('This app lets you see how the Black-Scholes formula can be used to price a European call option on a stock.')
 
     st.sidebar.title('Input Parameters')
@@ -93,7 +90,7 @@ elif nav_choice == "Black-Scholes":
 
     fig = plot_black_scholes(S, K, r, sigma, T)
     st.pyplot(fig, dpi=150)
-    st.write('The plot above shows how the price of the call option changes with the price of the stock. You can see that as the stock price goes up, the value of the call option also goes up. This is because the holder of the call option has the right to buy the stock at a lower price than the market price, and')
+    st.write('The plot above shows how the price of the call option changes with the price of the stock. You can see that as the stock price goes up, the value of the call option also goes up. This is because the holder of the call option has the right to buy the stock at a lower price than the market price, and thus stands to profit from the increase in the stock price.')
     put_price = calculate_put_price(S, K, r, sigma, T)
 
     st.write(f'**Given the input parameters, the put option price is:** `{put_price:.2f}`')
@@ -101,9 +98,9 @@ elif nav_choice == "Black-Scholes":
     fig2 = plot_black_scholes_put(S, K, r, sigma, T)
     st.pyplot(fig2, dpi=150)
 
-elif nav_choice == "Basic Concepts":
+elif nav_choice == "What are options?":
     # Add text
-    st.header("Basic Concepts")
+    st.header("What are options?")
     st.image(os.path.join("/Users/macbook/Desktop/HackNYU/KnowYourOptions","graph.png"))
     st.write("Options are contracts that give the holder the right, but not the obligation, to buy or sell an underlying asset at a predetermined price, within a specified time period. The underlying asset can be a stock, an index, a commodity, or a currency.")
 
@@ -114,12 +111,3 @@ elif nav_choice == "Basic Concepts":
     st.write("Suppose you want to buy a call option on a stock that is currently trading at \$100. The strike price of the option is \$110, and the option expires in one month. The premium (price) of the option is \$5. If you buy the option and the stock price goes up to \$120 by the expiration date, you can exercise the option and buy the stock at the strike price of \$110, making a profit of \$5 per share.")
 
 
-elif nav_choice == "Examples":
-    # Add text
-    st.header("Examples")
-
-    st.write("Here are some example trades you can make with options:")
-
-    st.write("- Buy a call option if you think the price of an underlying asset will go up")
-    st.write("- Buy a put option if you think the price of an underlying asset will go down")
-    st.write("- Sell a call option if you think the price of an underlying asset will stay the same or go down")
