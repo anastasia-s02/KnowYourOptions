@@ -69,8 +69,9 @@ if nav_choice == "Home":
     st.markdown('<div class="bg-image"></div>', unsafe_allow_html=True)
 
     # Add header and subheader
-    st.header("Welcome to OPTimal")
+    st.header("OPTimal!")
     st.subheader("Learn how to trade options and supercharge your portfolio")
+    
 
 
 elif nav_choice == "Black-Scholes Visualization":
@@ -78,12 +79,12 @@ elif nav_choice == "Black-Scholes Visualization":
     st.write('This app lets you see how the Black-Scholes formula can be used to price a European call option on a stock.')
 
     st.sidebar.title('Input Parameters')
-    S = st.sidebar.slider('Stock price (S)', min_value=1, max_value=1000, value=100)
-    K = st.sidebar.slider('Strike price (K)', min_value=1, max_value=1000, value=100)
-    r = st.sidebar.slider('Risk-free rate (r)', min_value=0.0, max_value=1.0, value=0.05, step=0.01)
+    S = st.sidebar.slider('Current stock price (S), $', min_value=1, max_value=1000, value=100)
+    K = st.sidebar.slider('Option striking price (K), $', min_value=1, max_value=1000, value=100)
+    r = st.sidebar.slider('Risk-free interest rate (r)', min_value=0.0, max_value=1.0, value=0.05, step=0.01)
     sigma = st.sidebar.slider('Volatility (sigma)', min_value=0.0, max_value=1.0, value=0.2, step=0.01)
     T = st.sidebar.slider('Time to expiration (T)', min_value=0.01, max_value=1.0, value=0.5, step=0.01)
-
+    
     call_price = calculate_call_price(S, K, r, sigma, T)
 
     st.write(f'**Given the input parameters, the call option price is:** `{call_price:.2f}`')
