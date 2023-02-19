@@ -83,7 +83,9 @@ if nav_choice == "Home":
     # Add header and subheader
     st.header("OPTimal!")
     st.subheader("Learn how to trade options and supercharge your portfolio")
-
+    st.image(
+        os.path.join("/Users/macbook/Desktop/HackNYU/KnowYourOptions", "cover.jpg")
+    )
 
 elif nav_choice == "Black-Scholes Visualization":
     st.title("Black-Scholes Formula Visualization")
