@@ -88,8 +88,8 @@ if nav_choice == "Home":
 elif nav_choice == "Black-Scholes Visualization":
     st.title("Black-Scholes Formula Visualization")
     st.write(
-        "This app lets you see how the Black-Scholes formula " +  
-	"can be used to price a European call option on a stock."
+        "This app lets you see how the Black-Scholes formula "
+        + "can be used to price a European call option on a stock."
     )
 
     st.sidebar.title("Input Parameters")
@@ -122,11 +122,11 @@ elif nav_choice == "Black-Scholes Visualization":
     fig = plot_black_scholes(S, K, r, sigma, T)
     st.pyplot(fig, dpi=150)
     st.write(
-        "The plot above shows how the price of the call option changes with " + 
-	"the price of the stock. You can see that as the stock price goes up, " + 
-	"the value of the call option also goes up. This is because the holder " +
-	"of the call option has the right to buy the stock at a lower price than " +
-	"the market price, and thus stands to profit from the increase in the stock price."
+        "The plot above shows how the price of the call option changes with "
+        + "the price of the stock. You can see that as the stock price goes up, "
+        + "the value of the call option also goes up. This is because the holder "
+        + "of the call option has the right to buy the stock at a lower price than "
+        + "the market price, and thus stands to profit from the increase in the stock price."
     )
     put_price = calculate_put_price(S, K, r, sigma, T)
 
@@ -144,27 +144,27 @@ elif nav_choice == "What are options?":
         os.path.join("/Users/macbook/Desktop/HackNYU/KnowYourOptions", "graph.png")
     )
     st.write(
-        "Options are contracts that give the holder the right, but not the obligation, " +
-	"to buy or sell an underlying asset at a predetermined price, within a specified " +
-	"time period. The underlying asset can be a stock, an index, a commodity, or a currency."
+        "Options are contracts that give the holder the right, but not the obligation, "
+        + "to buy or sell an underlying asset at a predetermined price, within a specified "
+        + "time period. The underlying asset can be a stock, an index, a commodity, or a currency."
     )
 
     st.write(
-        "There are two types of options: calls and puts. A call option gives the holder the right " +
-	"to buy an underlying asset at a predetermined price, while a put option gives the holder " +
-	"the right to sell an underlying asset at a predetermined price."
+        "There are two types of options: calls and puts. A call option gives the holder the right "
+        + "to buy an underlying asset at a predetermined price, while a put option gives the holder "
+        + "the right to sell an underlying asset at a predetermined price."
     )
 
     st.write(
-        "The price of an option is determined by several factors, including the current price of " +
-	"the underlying asset, the strike price, the time to expiration, and the volatility of " +
-	"the underlying asset."
+        "The price of an option is determined by several factors, including the current price of "
+        + "the underlying asset, the strike price, the time to expiration, and the volatility of "
+        + "the underlying asset."
     )
 
     st.write(
-        "Suppose you want to buy a call option on a stock that is currently trading at \$100. " +
-	"The strike price of the option is \$110, and the option expires in one month. " +
-	"The premium (price) of the option is \$5. If you buy the option and the stock " +
-	"price goes up to \$120 by the expiration date, you can exercise the option and " +
-	"buy the stock at the strike price of \$110, making a profit of \$5 per share."
+        "Suppose you want to buy a call option on a stock that is currently trading at \$100. "
+        + "The strike price of the option is \$110, and the option expires in one month. "
+        + "The premium (price) of the option is \$5. If you buy the option and the stock "
+        + "price goes up to \$120 by the expiration date, you can exercise the option and "
+        + "buy the stock at the strike price of \$110, making a profit of \$5 per share."
     )
