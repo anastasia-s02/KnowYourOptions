@@ -19,9 +19,16 @@ The Black Scholes model works by using a stock's volatility, price and strike pr
 
 The original Black-Scholes model is based on a core assumption that the market consists of at least one risky asset (such as a stock) and one (essentially) risk-free asset, such as a money market fund, cash or a government bond. In addition, it assumes three properties of the two assets, and four of the market itself:
 
-1. Assumptions about the assets in the market are: 1. The rate of return on the risk-free asset is constant (thus effectively behaves as an interest rate); 2. The instantaneous log return of the risky asset’s price is assumed to behave as an infinitesimal random walk with constant drift and volatility, more precisely, according to geometric Brownian motion. 3. The risky asset does not pay a dividend.
+<ins>Assumptions about the assets in the market are:</ins>
+* The rate of return on the risk-free asset is constant (thus effectively behaves as an interest rate).
+* The instantaneous log return of the risky asset’s price is assumed to behave as an infinitesimal random walk with constant drift and volatility, more precisely, according to geometric Brownian motion.
+* The risky asset does not pay a dividend.
 
-2. Assumptions about the market itself are: 1. There are no arbitrage (risk-free profit) opportunities; 2. It is possible to borrow and lend any amount of cash at the same rate as the interest rate of the risk-free asset; 3. It is possible to buy and sell any amount of the stock (including short selling); and 4. There are no transaction costs in the market (i.e. no commission for buying or selling securities or derivative instruments).
+<ins>Assumptions about the market itself are:</ins>
+* There are no arbitrage (risk-free profit) opportunities.
+* It is possible to borrow and lend any amount of cash at the same rate as the interest rate of the risk-free asset.
+* It is possible to buy and sell any amount of the stock (including short selling).
+* There are no transaction costs in the market (i.e. no commission for buying or selling securities or derivative instruments).
 
 
 
@@ -30,7 +37,7 @@ The original Black-Scholes model is based on a core assumption that the market c
 
 
 
-To run a program:
+After cloning git repository, run the following commands in the terminal:
 
 ```
 pip install streamlit
@@ -38,5 +45,3 @@ pip install streamlit
 ```
 streamlit run opt5.py
 ```
-
-#### This project was made for HackNYU 2023. ####
