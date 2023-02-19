@@ -26,7 +26,7 @@ def calculate_put_price(S, K, r, sigma, T):
     )
 
 
-def plot_black_scholes(S, K, r, sigma, T):
+def plot_black_scholes_call(S, K, r, sigma, T):
     fig, ax = plt.subplots()
     ax.set_xlabel("Stock Price")
     ax.set_ylabel("Call Option Price")
@@ -53,10 +53,10 @@ def plot_black_scholes_put(S, K, r, sigma, T):
     # Create an array of stock prices ranging from 0.5*S to 1.5*S
     S_values = np.linspace(0.5 * S, 1.5 * S, 100)
 
-    # Calculate the corresponding call option prices using the Black-Scholes formula
+    # Calculate the corresponding put option prices using the Black-Scholes formula
     put_prices = [calculate_put_price(S, K, r, sigma, T) for S in S_values]
 
-    # Plot the call option prices as a function of stock price
+    # Plot the put option prices as a function of stock price
     ax.plot(S_values, put_prices)
 
     return fig
@@ -121,7 +121,7 @@ elif nav_choice == "Black-Scholes Visualization":
         f"**Given the input parameters, the call option price is:** `{call_price:.2f}`"
     )
 
-    fig = plot_black_scholes(S, K, r, sigma, T)
+    fig = plot_black_scholes_call(S, K, r, sigma, T)
     st.pyplot(fig, dpi=150)
     st.write(
         "The plot above shows how the price of the call option changes with "
