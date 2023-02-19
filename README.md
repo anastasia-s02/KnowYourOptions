@@ -1,5 +1,6 @@
 
-# Know Your Options #
+# OPTimal #
+
 ### Do you know about option trading? If you are not familar, check this link! ###
 
 https://www.youtube.com/watch?v=joJ8mbwuYW8&ab_channel=SkyViewTrading
@@ -37,3 +38,5 @@ pip install streamlit
 ```
 streamlit run opt5.py
 ```
+
+#### This project was made for HackNYU 2023. ####
