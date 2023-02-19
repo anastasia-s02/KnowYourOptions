@@ -1,20 +1,20 @@
 
-
-A.Do you know about option trading? If you are not familar, check this link! 
+# Know Your Options #
+### Do you know about option trading? If you are not familar, check this link! ###
 
 https://www.youtube.com/watch?v=joJ8mbwuYW8&ab_channel=SkyViewTrading
 
-B.What is a fair value of an option and why is it important to get the most accurate prediction?
+### What is a fair value of an option and why is it important to get the most accurate prediction? ###
 
 ![image](https://user-images.githubusercontent.com/63567363/219904458-54558b24-e88a-4765-a0fa-e1f4e74a113e.png)
 
 This value is important to know because it can be used to ascertain whether an option is expensive or reasonably priced. Option traders use fair value as a reference, and profit by purchasing options for less than their fair value or selling them for more than their fair value.
 
-C.How does thie BS model work? 
+### How does the Black-Scholes model work? ###
 
 The Black Scholes model works by using a stock's volatility, price and strike price, expected dividend yield, and risk-free interest rate for a stable asset to determine the price of a stock option.
 
-D. Assumptions
+### Assumptions ###
 
 The original Black-Scholes model is based on a core assumption that the market consists of at least one risky asset (such as a stock) and one (essentially) risk-free asset, such as a money market fund, cash or a government bond. In addition, it assumes three properties of the two assets, and four of the market itself:
 
@@ -25,14 +25,15 @@ The original Black-Scholes model is based on a core assumption that the market c
 
 
 
-E. How to Run the Program
+### How to Run the Program ###
 
 
 
-To run a program, run 
+To run a program:
 
 ```
 pip install streamlit
-
+```
+```
 streamlit run opt5.py
 ```
