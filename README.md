@@ -43,5 +43,5 @@ After cloning git repository, run the following commands in the terminal:
 pip install streamlit
 ```
 ```
-streamlit run opt5.py
+streamlit run options.py
 ```
