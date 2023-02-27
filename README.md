@@ -13,7 +13,7 @@ This value is important to know because it can be used to ascertain whether an o
 
 ### How does the Black-Scholes model work? ###
 
-The Black Scholes model works by using a stock's volatility, price and strike price, expected dividend yield, and risk-free interest rate for a stable asset to determine the price of a stock option.
+The Black Scholes model works by using a stock's volatility, current price, strike price, risk-free interest rate for a stable asset, and time to maturity to determine fair the price of a stock option.
 
 ### Assumptions ###
 
