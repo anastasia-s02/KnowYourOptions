@@ -7,26 +7,59 @@ from scipy.stats import norm
 
 
 def d1(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
-    return (log(stock_price / strike_price) + (risk_free_rate + volatility**2 / 2) * time_until_maturity) / (volatility * sqrt(time_until_maturity))
+    """
+    Calculates intermediate term d1 for Black-Scholes model. 
+    """
+
+    return (
+        log(stock_price / strike_price)
+        + (risk_free_rate + volatility**2 / 2) * time_until_maturity
+    ) / (volatility * sqrt(time_until_maturity))
 
 
 def d2(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
-    return (log(stock_price / strike_price) + (risk_free_rate - volatility**2 / 2) * time_until_maturity) / (volatility * sqrt(time_until_maturity))
+    """
+    Calculates intermediate term d2 for Black-Scholes model. 
+    """
+
+    return (
+        log(stock_price / strike_price)
+        + (risk_free_rate - volatility**2 / 2) * time_until_maturity
+    ) / (volatility * sqrt(time_until_maturity))
 
 
-def calculate_call_price(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
-    return stock_price * norm.cdf(d1(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)) - strike_price * exp(-risk_free_rate * time_until_maturity) * norm.cdf(
+def calculate_call_price(
+    stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
+    """
+    Calculates option call price according to  Black-Scholes model. 
+    """
+
+    return stock_price * norm.cdf(
+        d1(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)
+    ) - strike_price * exp(-risk_free_rate * time_until_maturity) * norm.cdf(
         d2(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)
     )
 
 
-def calculate_put_price(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
-    return strike_price * exp(-risk_free_rate * time_until_maturity) * norm.cdf(-d2(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)) - stock_price * norm.cdf(
+def calculate_put_price(
+    stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
+    """
+    Calculates option put price according to  Black-Scholes model.
+    """
+
+    return strike_price * exp(-risk_free_rate * time_until_maturity) * norm.cdf(
+        -d2(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)
+    ) - stock_price * norm.cdf(
         -d1(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)
     )
 
 
-def plot_black_scholes_call(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
+def plot_black_scholes_call(
+    stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
+    """
+    Plots a graph of the call price according to  Black-Scholes model.
+    """
+
     figure, axes = plt.subplots()
     axes.set_xlabel("Stock Price")
     axes.set_ylabel("Call Option Price")
@@ -36,7 +69,12 @@ def plot_black_scholes_call(stock_price, strike_price, risk_free_rate, volatilit
     stock_price_values = np.linspace(0.5 * stock_price, 1.5 * stock_price, 100)
 
     # Calculate the corresponding call option prices using the Black-Scholes formula
-    call_prices = [calculate_call_price(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity) for stock_price in stock_price_values]
+    call_prices = [
+        calculate_call_price(
+            stock_price, strike_price, risk_free_rate, volatility, time_until_maturity
+        )
+        for stock_price in stock_price_values
+    ]
 
     # Plot the call option prices as a function of stock price
     axes.plot(stock_price_values, call_prices)
@@ -44,7 +82,12 @@ def plot_black_scholes_call(stock_price, strike_price, risk_free_rate, volatilit
     return figure
 
 
-def plot_black_scholes_put(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
+def plot_black_scholes_put(
+    stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
+    """
+    Plots a graph of the put price according to  Black-Scholes model.
+    """
+
     figure, axes = plt.subplots()
     axes.set_xlabel("Stock Price")
     axes.set_ylabel("Put Option Price")
@@ -54,26 +97,30 @@ def plot_black_scholes_put(stock_price, strike_price, risk_free_rate, volatility
     stock_price_values = np.linspace(0.5 * stock_price, 1.5 * stock_price, 100)
 
     # Calculate the corresponding put option prices using the Black-Scholes formula
-    put_prices = [calculate_put_price(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity) for stock_price in stock_price_values]
+    put_prices = [
+        calculate_put_price(
+            stock_price, strike_price, risk_free_rate, volatility, time_until_maturity
+        )
+        for stock_price in stock_price_values
+    ]
 
     # Plot the put option prices as a function of stock price
     axes.plot(stock_price_values, put_prices)
 
     return figure
 
-
-# Set page title and favicon
-st.set_page_config(page_title="OPTimal", page_icon=":chart_with_upwards_trend:")
-
-
-# Define a function to create the navigation menu
 def create_nav_menu():
+    """
+    Creates navigation menu. 
+    """
+
     nav_menu = ["Home", "What are options?", "Black-Scholes Visualization"]
     nav_choice = st.sidebar.radio("Select a page:", nav_menu)
     return nav_choice
 
-
-# Create the navigation menu
+if __name__ == "__main__":
+    # Set page title and favicon
+st.set_page_config(page_title="OPTimal", page_icon=":chart_with_upwards_trend:")
 nav_choice = create_nav_menu()
 
 # Define the content for each page
@@ -115,13 +162,17 @@ elif nav_choice == "Black-Scholes Visualization":
         "Time to expiration (T)", min_value=0.01, max_value=1.0, value=0.5, step=0.01
     )
 
-    call_price = calculate_call_price(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)
+    call_price = calculate_call_price(
+        stock_price, strike_price, risk_free_rate, volatility, time_until_maturity
+    )
 
     st.write(
         f"**Given the input parameters, the call option price is:** `{call_price:.2f}`"
     )
 
-    call_figure = plot_black_scholes_call(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)
+    call_figure = plot_black_scholes_call(
+        stock_price, strike_price, risk_free_rate, volatility, time_until_maturity
+    )
     st.pyplot(call_figure, dpi=150)
     st.write(
         "The plot above shows how the price of the call option changes with "
@@ -130,13 +181,17 @@ elif nav_choice == "Black-Scholes Visualization":
         + "of the call option has the right to buy the stock at a lower price than "
         + "the market price, and thus stands to profit from the increase in the stock price."
     )
-    put_price = calculate_put_price(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)
+    put_price = calculate_put_price(
+        stock_price, strike_price, risk_free_rate, volatility, time_until_maturity
+    )
 
     st.write(
         f"**Given the input parameters, the put option price is:** `{put_price:.2f}`"
     )
 
-    put_figure = plot_black_scholes_put(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)
+    put_figure = plot_black_scholes_put(
+        stock_price, strike_price, risk_free_rate, volatility, time_until_maturity
+    )
     st.pyplot(put_figure, dpi=150)
 
 elif nav_choice == "What are options?":
