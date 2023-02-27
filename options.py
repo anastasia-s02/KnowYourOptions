@@ -6,60 +6,60 @@ import numpy as np
 from scipy.stats import norm
 
 
-def d1(S, K, r, sigma, T):
-    return (log(S / K) + (r + sigma**2 / 2) * T) / (sigma * sqrt(T))
+def d1(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
+    return (log(stock_price / strike_price) + (risk_free_rate + volatility**2 / 2) * time_until_maturity) / (volatility * sqrt(time_until_maturity))
 
 
-def d2(S, K, r, sigma, T):
-    return (log(S / K) + (r - sigma**2 / 2) * T) / (sigma * sqrt(T))
+def d2(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
+    return (log(stock_price / strike_price) + (risk_free_rate - volatility**2 / 2) * time_until_maturity) / (volatility * sqrt(time_until_maturity))
 
 
-def calculate_call_price(S, K, r, sigma, T):
-    return S * norm.cdf(d1(S, K, r, sigma, T)) - K * exp(-r * T) * norm.cdf(
-        d2(S, K, r, sigma, T)
+def calculate_call_price(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
+    return stock_price * norm.cdf(d1(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)) - strike_price * exp(-risk_free_rate * time_until_maturity) * norm.cdf(
+        d2(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)
     )
 
 
-def calculate_put_price(S, K, r, sigma, T):
-    return K * exp(-r * T) * norm.cdf(-d2(S, K, r, sigma, T)) - S * norm.cdf(
-        -d1(S, K, r, sigma, T)
+def calculate_put_price(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
+    return strike_price * exp(-risk_free_rate * time_until_maturity) * norm.cdf(-d2(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)) - stock_price * norm.cdf(
+        -d1(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)
     )
 
 
-def plot_black_scholes_call(S, K, r, sigma, T):
-    fig, ax = plt.subplots()
-    ax.set_xlabel("Stock Price")
-    ax.set_ylabel("Call Option Price")
-    ax.set_title("Black-Scholes Formula for Call Option")
+def plot_black_scholes_call(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
+    figure, axes = plt.subplots()
+    axes.set_xlabel("Stock Price")
+    axes.set_ylabel("Call Option Price")
+    axes.set_title("Black-Scholes Formula for Call Option")
 
-    # Create an array of stock prices ranging from 0.5*S to 1.5*S
-    S_values = np.linspace(0.5 * S, 1.5 * S, 100)
+    # Create an array of stock prices ranging from 0.5*stock_price to 1.5*stock_price
+    stock_price_values = np.linspace(0.5 * stock_price, 1.5 * stock_price, 100)
 
     # Calculate the corresponding call option prices using the Black-Scholes formula
-    call_prices = [calculate_call_price(S, K, r, sigma, T) for S in S_values]
+    call_prices = [calculate_call_price(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity) for stock_price in stock_price_values]
 
     # Plot the call option prices as a function of stock price
-    ax.plot(S_values, call_prices)
+    axes.plot(stock_price_values, call_prices)
 
-    return fig
+    return figure
 
 
-def plot_black_scholes_put(S, K, r, sigma, T):
-    fig, ax = plt.subplots()
-    ax.set_xlabel("Stock Price")
-    ax.set_ylabel("Put Option Price")
-    ax.set_title("Black-Scholes Formula for Put Option")
+def plot_black_scholes_put(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
+    figure, axes = plt.subplots()
+    axes.set_xlabel("Stock Price")
+    axes.set_ylabel("Put Option Price")
+    axes.set_title("Black-Scholes Formula for Put Option")
 
-    # Create an array of stock prices ranging from 0.5*S to 1.5*S
-    S_values = np.linspace(0.5 * S, 1.5 * S, 100)
+    # Create an array of stock prices ranging from 0.5*stock_price to 1.5*stock_price
+    stock_price_values = np.linspace(0.5 * stock_price, 1.5 * stock_price, 100)
 
     # Calculate the corresponding put option prices using the Black-Scholes formula
-    put_prices = [calculate_put_price(S, K, r, sigma, T) for S in S_values]
+    put_prices = [calculate_put_price(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity) for stock_price in stock_price_values]
 
     # Plot the put option prices as a function of stock price
-    ax.plot(S_values, put_prices)
+    axes.plot(stock_price_values, put_prices)
 
-    return fig
+    return figure
 
 
 # Set page title and favicon
@@ -95,34 +95,34 @@ elif nav_choice == "Black-Scholes Visualization":
     )
 
     st.sidebar.title("Input Parameters")
-    S = st.sidebar.slider(
+    stock_price = st.sidebar.slider(
         "Current stock price (S), $", min_value=1, max_value=1000, value=100
     )
-    K = st.sidebar.slider(
+    strike_price = st.sidebar.slider(
         "Option striking price (K), $", min_value=1, max_value=1000, value=100
     )
-    r = st.sidebar.slider(
+    risk_free_rate = st.sidebar.slider(
         "Risk-free interest rate (r)",
         min_value=0.0,
         max_value=1.0,
         value=0.05,
         step=0.01,
     )
-    sigma = st.sidebar.slider(
+    volatility = st.sidebar.slider(
         "Volatility (sigma)", min_value=0.0, max_value=1.0, value=0.2, step=0.01
     )
-    T = st.sidebar.slider(
+    time_until_maturity = st.sidebar.slider(
         "Time to expiration (T)", min_value=0.01, max_value=1.0, value=0.5, step=0.01
     )
 
-    call_price = calculate_call_price(S, K, r, sigma, T)
+    call_price = calculate_call_price(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)
 
     st.write(
         f"**Given the input parameters, the call option price is:** `{call_price:.2f}`"
     )
 
-    fig = plot_black_scholes_call(S, K, r, sigma, T)
-    st.pyplot(fig, dpi=150)
+    call_figure = plot_black_scholes_call(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)
+    st.pyplot(call_figure, dpi=150)
     st.write(
         "The plot above shows how the price of the call option changes with "
         + "the price of the stock. You can see that as the stock price goes up, "
@@ -130,14 +130,14 @@ elif nav_choice == "Black-Scholes Visualization":
         + "of the call option has the right to buy the stock at a lower price than "
         + "the market price, and thus stands to profit from the increase in the stock price."
     )
-    put_price = calculate_put_price(S, K, r, sigma, T)
+    put_price = calculate_put_price(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)
 
     st.write(
         f"**Given the input parameters, the put option price is:** `{put_price:.2f}`"
     )
 
-    fig2 = plot_black_scholes_put(S, K, r, sigma, T)
-    st.pyplot(fig2, dpi=150)
+    put_figure = plot_black_scholes_put(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity)
+    st.pyplot(put_figure, dpi=150)
 
 elif nav_choice == "What are options?":
     # Add text
