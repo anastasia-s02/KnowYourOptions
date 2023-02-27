@@ -8,7 +8,7 @@ from scipy.stats import norm
 
 def d1(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
     """
-    Calculates intermediate term d1 for Black-Scholes model. 
+    Calculates intermediate term d1 for Black-Scholes model.
     """
 
     return (
@@ -19,7 +19,7 @@ def d1(stock_price, strike_price, risk_free_rate, volatility, time_until_maturit
 
 def d2(stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
     """
-    Calculates intermediate term d2 for Black-Scholes model. 
+    Calculates intermediate term d2 for Black-Scholes model.
     """
 
     return (
@@ -29,9 +29,10 @@ def d2(stock_price, strike_price, risk_free_rate, volatility, time_until_maturit
 
 
 def calculate_call_price(
-    stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
+    stock_price, strike_price, risk_free_rate, volatility, time_until_maturity
+):
     """
-    Calculates option call price according to  Black-Scholes model. 
+    Calculates option call price according to  Black-Scholes model.
     """
 
     return stock_price * norm.cdf(
@@ -42,7 +43,8 @@ def calculate_call_price(
 
 
 def calculate_put_price(
-    stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
+    stock_price, strike_price, risk_free_rate, volatility, time_until_maturity
+):
     """
     Calculates option put price according to  Black-Scholes model.
     """
@@ -55,7 +57,8 @@ def calculate_put_price(
 
 
 def plot_black_scholes_call(
-    stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
+    stock_price, strike_price, risk_free_rate, volatility, time_until_maturity
+):
     """
     Plots a graph of the call price according to  Black-Scholes model.
     """
@@ -83,7 +86,8 @@ def plot_black_scholes_call(
 
 
 def plot_black_scholes_put(
-    stock_price, strike_price, risk_free_rate, volatility, time_until_maturity):
+    stock_price, strike_price, risk_free_rate, volatility, time_until_maturity
+):
     """
     Plots a graph of the put price according to  Black-Scholes model.
     """
@@ -109,14 +113,16 @@ def plot_black_scholes_put(
 
     return figure
 
+
 def create_nav_menu():
     """
-    Creates navigation menu. 
+    Creates navigation menu.
     """
 
     nav_menu = ["Home", "What are options?", "Black-Scholes Visualization"]
     nav_choice = st.sidebar.radio("Select a page:", nav_menu)
     return nav_choice
+
 
 if __name__ == "__main__":
     # Set page title and creates navigation menu
@@ -130,20 +136,17 @@ if __name__ == "__main__":
         # Add header and subheader
         st.header("OPTimal!")
         st.subheader("Learn how to trade options and supercharge your portfolio")
-        st.image(
-            os.path.join("", "cover.jpg")
-        )
-    # Define the content for page with Black-Scholes visualization 
+        st.image(os.path.join("", "cover.jpg"))
+    # Define the content for page with Black-Scholes visualization
     elif nav_choice == "Black-Scholes Visualization":
-
-	# Set page header and description
+        # Set page header and description
         st.title("Black-Scholes Formula Visualization")
         st.write(
             "This app lets you see how the Black-Scholes formula "
             + "can be used to price European call and put options on a stock."
         )
 
-	# Set sidebar and sliders 
+        # Set sidebar and sliders
         st.sidebar.title("Input Parameters")
         stock_price = st.sidebar.slider(
             "Current stock price (S), $", min_value=1, max_value=1000, value=100
@@ -162,10 +165,14 @@ if __name__ == "__main__":
             "Volatility (sigma)", min_value=0.0, max_value=1.0, value=0.2, step=0.01
         )
         time_until_maturity = st.sidebar.slider(
-            "Time to expiration (T)", min_value=0.01, max_value=1.0, value=0.5, step=0.01
+            "Time to expiration (T)",
+            min_value=0.01,
+            max_value=1.0,
+            value=0.5,
+            step=0.01,
         )
 
-	# Plot a graph for call price
+        # Plot a graph for call price
         call_price = calculate_call_price(
             stock_price, strike_price, risk_free_rate, volatility, time_until_maturity
         )
@@ -177,7 +184,7 @@ if __name__ == "__main__":
         )
         st.pyplot(call_figure, dpi=150)
 
-	# Description of call price plot 
+        # Description of call price plot
         st.write(
             "The plot above shows how the price of the call option changes with "
             + "the price of the stock. You can see that as the stock price goes up, "
@@ -186,7 +193,7 @@ if __name__ == "__main__":
             + "the market price, and thus stands to profit from the increase in the stock price."
         )
 
-	# Plot a graph for put price 
+        # Plot a graph for put price
         put_price = calculate_put_price(
             stock_price, strike_price, risk_free_rate, volatility, time_until_maturity
         )
@@ -197,22 +204,20 @@ if __name__ == "__main__":
             stock_price, strike_price, risk_free_rate, volatility, time_until_maturity
         )
         st.pyplot(put_figure, dpi=150)
-	
-	# Description of put price plot
-	st.write(
+
+        # Description of put price plot
+        st.write(
             "The plot above shows how the price of the put option changes with "
             + "the price of the stock. You can see that as the stock price goes up, "
             + "the value of the put option also goes down. This is because the holder "
             + "of the put option has the right to sell the stock at a higher price than "
             + "the market price, and thus stands to profit from the decrease in the stock price."
         )
-    # Define the content for page with short description of what options are 
+    # Define the content for page with short description of what options are
     elif nav_choice == "What are options?":
         # Add text
         st.header("What are options?")
-        st.image(
-            os.path.join("", "graph.png")
-        )
+        st.image(os.path.join("", "graph.png"))
         st.write(
             "Options are contracts that give the holder the right, but not the obligation, "
             + "to buy or sell an underlying asset at a predetermined price, within a specified "
